@@ -11,14 +11,14 @@ function buildTable(data) {
 
   // Loop through each object in the data and append a row and cells for each value in the row
   data.forEach((dataRow) => {
-      // Append a row to the table body
-      let row = tbody.append("tr");
+    // Append a row to the table body
+    let row = tbody.append("tr");
 
-      // Loop through each field in the dataRow and add each value as a table cell (td)
-      Object.values(dataRow).forEach((val) => {
-          let cell = row.append("td");
-          cell.text(val);
-      });
+    // Loop through each field in the dataRow and add each value as a table cell (td)
+    Object.values(dataRow).forEach((val) => {
+      let cell = row.append("td");
+      cell.text(val);
+    });
   });
 }
 
@@ -28,46 +28,45 @@ var filters = {};
 // 3. Use this function to update the filters
 function updateFilters() {
 
-    // 4a. Save the element that was changed as a variable
-    let element = d3.event.target;
+  // 4a. Save the element that was changed as a variable
+  let element = d3.event.target;
 
-    // 4b. Save the value that was changed as a variable
-    let value = element.value;
+  // 4b. Save the value that was changed as a variable
+  let value = element.value;
 
-    // 4c. Save the id of the filter that was changed as a variable
-    let filterId = element.id;
-  
-    // 5. If a filter value was entered then add that filterId and value to the filters list
-    //Otherwise, clear that filter from the filters object
-    if (value) {
-      filters[filterId] = value;
-    }
-    else {
-      delete filters[filterId];
-    }
-  
-    // 6. Call function to apply all filters and rebuild the table
-    filterTable();
-  
+  // 4c. Save the id of the filter that was changed as a variable
+  let filterId = element.id;
+
+  // 5. If a filter value was entered then add that filterId and value to the filters list
+  //Otherwise, clear that filter from the filters object
+  if (value) {
+    filters[filterId] = value;
   }
-  
-  // 7. Use this function to filter the table when data is entered.
-  function filterTable() {
-  
-    // 8. Set the filtered data to the tableData.
-    let filteredData = tableData;
-  
-    // 9. Loop through all of the filters and keep any data that matches the filter values
-    Object.entries(filters).forEach(([key, value]) => {
-      filteredData = filteredData.filter(element => element[key] == value);
-    });
-  
-    // 10. Finally, rebuild the table using the filtered data
-    buildTable(filteredData);
+  else {
+    delete filters[filterId];
   }
-  
-  // 2. Attach an event to listen for changes to each filter
-  filter.on("change", updateFilters);
-  
-  // Build the table when the page loads
-  buildTable(tableData);
+
+  // 6. Call function to apply all filters and rebuild the table
+  filterTable();
+}
+
+// 7. Use this function to filter the table when data is entered.
+function filterTable() {
+
+  // 8. Set the filtered data to the tableData.
+  let filteredData = tableData;
+
+  // 9. Loop through all of the filters and keep any data that matches the filter values
+  Object.entries(filters).forEach(([key, value]) => {
+    filteredData = filteredData.filter(element => element[key] == value);
+  });
+
+  // 10. Finally, rebuild the table using the filtered data
+  buildTable(filteredData);
+}
+
+// 2. Attach an event to listen for changes to each filter
+filter.on("change", updateFilters);
+
+// Build the table when the page loads
+buildTable(tableData);
