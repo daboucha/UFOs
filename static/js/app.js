@@ -3,7 +3,7 @@ const tableData = data;
 
 // get table references
 var tbody = d3.select("tbody");
-var filter = d3.select("#search-filter")
+var filter = d3.select("#search-filter");
 
 function buildTable(data) {
   // Clear out any existing data
@@ -63,7 +63,7 @@ function updateFilters() {
     });
   
     // 10. Finally, rebuild the table using the filtered data
-    buildTable(filteredData)
+    buildTable(filteredData);
   }
   
   // 2. Attach an event to listen for changes to each filter
